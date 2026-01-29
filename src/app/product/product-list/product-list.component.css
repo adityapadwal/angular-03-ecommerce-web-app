@@ -1,0 +1,28 @@
+.product-card {
+  max-width: 150px;
+}
+
+.product-header-image {
+  background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.product-grid > div {
+  flex: 1 1 250px;
+}
+
+mat-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+mat-card {
+  transition: transform .2s;
+}
+
