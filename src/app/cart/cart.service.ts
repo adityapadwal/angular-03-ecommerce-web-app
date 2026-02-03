@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class CartService {
 
   private apiUrl = environment.apiUrl + '/cart';
+  private apiCheckoutUrl = environment.apiUrl + '/checkout';
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +24,9 @@ export class CartService {
 
   clearCart(): Observable<void> {
     return this.http.delete<void>(this.apiUrl);
+  }
+
+  checkoutCart(products: Product[]): Observable<string> {
+    return this.http.post<string>(this.apiCheckoutUrl, products);
   }
 }
