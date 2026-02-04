@@ -1,5 +1,5 @@
 import { CartService } from './../../cart/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from 'src/app/models/product';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
 
   // properties
   products: Product[] = [];
+  filteredProducts: Product[] = [];
 
   constructor(
     private productService: ProductService,
@@ -25,6 +26,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.products = data;
+        this.filteredProducts = data;
       },
       error: (error) => {
         console.log(error);
@@ -40,10 +42,15 @@ export class ProductListComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-      },
-      error: () => {
-
       }
     });
+  }
+
+  applyFilter(event: Event): void {
+    let searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.filteredProducts = this.products.filter(
+      (product) => product.name.toLowerCase().includes(searchTerm)
+    )
   }
 }
